@@ -15,3 +15,4 @@ $git clone https://github.com/mizoc/logx
 ```bash
 $./logx.sh FILE_SAVE_DESTINATION.csv
 ```
+![demo](https://user-images.githubusercontent.com/47818505/160543535-7285091a-c507-49e5-a9be-7e673d290f9e.gif)
