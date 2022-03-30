@@ -43,7 +43,7 @@ test "$MODE" = "CW" && DEFAULT_RST=599 || DEFAULT_RST=59
 
 while :;do
   #Call Sign
-  dialog  --title "New QSO" --cancel-label "Exit" --ok-label "Start QSO" --form "" 20 60 16 "Call Sign:" 1 1 "" 1 25 25 30 2>"$TMP"
+  dialog  --hfile ./help_page_call.txt --title "New QSO" --cancel-label "Exit" --ok-label "Start QSO" --form "" 20 60 16 "Call Sign:" 1 1 "" 1 25 25 30 2>"$TMP"
   STATUS=$?
   test $STATUS -ne 0 && break
   CALL=`cat "$TMP" | tr '[a-z]' '[A-Z]'`
@@ -54,7 +54,7 @@ while :;do
   START_TIME=`date --utc '+%H:%M'`
 
   #Set remarks
-  INFO=$(dialog --stdout --title "QSO Info" --cancel-label "Discard QSO" --form "" 20 60 16 \
+  INFO=$(dialog --hfile ./help_page_info.txt --stdout --title "QSO Info" --cancel-label "Discard QSO" --form "" 20 60 16 \
     "Name:" 1 1 "" 1 25 25 30 \
     "QTH:" 2 1 "" 2 25 25 30 \
     "Remarks:" 3 1 "" 3 25 25 30 \

@@ -1,0 +1,5 @@
+You can move between input boxes with arrow keys and Ctrl-N,P.
+
+You do not have to use tab and select "OK", but just press Enter.
+
+When you press Enter, End time is set.
