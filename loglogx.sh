@@ -1,26 +1,26 @@
 #!/bin/bash
 # Author:mizoc
 # LICENSE:MIT
-# Repository:https://github.com/mizoc/logx
+# Repository:https://github.com/mizoc/loglogx
 #
 # Usage
-#   $./logx.sh save file path
+#   $./loglogx.sh save file path
 #
 #
 ########################################
 
 # Initial Setting...
 which dialog >/dev/null 2>&1 || {
-  echo `basename $0` needs dialog.
+  echo `basename $0` needs dialog. >&2
   exit 1
 }
 
 test $# -ne 1 && {
-  echo "Usage: $`basename $0` Saving_file_path"
+  echo "Usage: $`basename $0` Saving_file_path" >&2
   exit 1
 }
 OUT="$1"
-test -f "$OUT" || echo 'name,QTH,Remarks,Received RS(T),Sent RS(T),Call Sign,Start time,Frequency,Mode,End time' >"$OUT"
+test -f "$OUT" || echo 'name,QTH,Remarks,Received RS(T),Sent RS(T),Call Sign,Start Date, Start Time(UTC),Frequency,Mode,End Date, End Time(UTC)' >"$OUT"
 
 TMP=`mktemp "/tmp/${0##*/}.tmp.XXXXXX"`
 trap 'rm "$TMP"; clear; exit 1' 1 2 3 15
@@ -50,7 +50,8 @@ while :;do
   test -z "$CALL" && continue
 
   #Set start time
-  START_TIME=`date --utc '+%Y/%m/%d %H:%M(UTC)'`
+  START_DATE=`date --utc '+%Y/%m/%d'`
+  START_TIME=`date --utc '+%H:%M'`
 
   #Set remarks
   INFO=$(dialog --stdout --title "QSO Info" --cancel-label "Discard QSO" --form "" 20 60 16 \
@@ -60,18 +61,20 @@ while :;do
     "Rcvd:" 4 1 "$DEFAULT_RST" 4 25 25 30 \
     "Sent:" 5 1 "$DEFAULT_RST" 5 25 25 30 \
     "Call Sign:" 6 1 "$CALL" 6 25 25 30 \
-    "Start Time:" 7 1 "$START_TIME" 7 25 25 30 \
-    "Frequency:" 8 1 "$FRQ" 8 25 25 30 \
-    "Mode:" 9 1 "$MODE" 9 25 25 30)
+    "Start Date:" 7 1 "$START_DATE" 7 25 25 30 \
+    "Start Time:" 8 1 "$START_TIME" 8 25 25 30 \
+    "Frequency:" 9 1 "$FRQ" 9 25 25 30 \
+    "Mode:" 10 1 "$MODE" 10 25 25 30)
   STATUS=$?
   test $STATUS -ne 0 && continue
 
   #Set end time
-  END_TIME=`date --utc '+%Y/%m/%d %H:%M(UTC)'`
+  END_DATE=`date --utc '+%Y/%m/%d'`
+  END_TIME=`date --utc '+%H:%M'`
 
   #Write to the file
   echo "$INFO" |tr ',' '.' | tr "\n" ',' >>$OUT
-  echo $END_TIME >>$OUT
+  echo $END_DATE,$END_TIME >>$OUT
 done
 
 
