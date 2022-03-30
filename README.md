@@ -1,14 +1,18 @@
-![loglogx](https://latex.codecogs.com/png.image?\inline&space;\huge&space;\dpi{200}\log{\log{x}})  
+![loglogx](https://latex.codecogs.com/png.image?\inline&space;\huge&space;\dpi{200}\color{Blue}\log{\log{x}})  
 
-loglogx is a very Simple logging(in the meaning of ham radio) TUI script for Linux.  
+loglogx is a very simple logging(in the meaning of ham radio) TUI script for Linux.  
 
 I prefer paper logs, but when I calling CQ, due to the large number of QSOs, I usually use this script.  
-ADIF format is supported. So, you can upload to eQSL.cc.  
+So, it has only a few functions.  
+
+ADIF format is supported and you can upload to eQSL.cc.  
 
 ## Installtion
-First of all, install dialog.  
+Install dialog.  
 ```bash
 $git clone https://github.com/mizoc/loglogx
+$cd $_
+#link *.sh to somewhere like /usr/local/bin/, if you want.
 ```
 
 ## Usage
